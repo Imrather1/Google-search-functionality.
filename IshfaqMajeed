@@ -1,0 +1,54 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.Assert;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.Before;
+import io.cucumber.java.After;
+
+public class IshfaqMajeed {
+    public static void main(String[] args) {
+    }
+
+    private WebDriver driver;
+
+    @Before
+    public void setUp() {
+        // Initialize the driver instance
+        System.setProperty("webdriver.chrome.driver", "/C:\\Users\\ISHFAQ MAJEED\\Downloads\\chromedriver_win32\\chromedriver.exe");
+        driver = new ChromeDriver();
+    }
+
+    @After
+    public void tearDown() {
+        // Quit the driver instance
+        driver.quit();
+    }
+
+    @Given("I am on the Google homepage")
+    public void i_am_on_the_google_homepage() {
+        // Navigate to the Google homepage
+        driver.get("https://www.google.com");
+    }
+
+    @When("I enter {string} in the search box")
+    public void i_enter_in_the_search_box(String keyword) {
+        // Enter the keyword in the search box
+        driver.findElement(By.name("q")).sendKeys(keyword);
+    }
+
+    @When("I click on the search button")
+    public void i_click_on_the_search_button() {
+        // Click the search button
+        driver.findElement(By.name("btnK")).click();
+    }
+
+    @Then("I should see search results for {string}")
+    public void i_should_see_search_results_for(String keyword) {
+        // Verify that the search results page is displayed
+        String pageTitle = driver.getTitle();
+        Assert.assertTrue(pageTitle.contains(keyword));
+    }
+}
